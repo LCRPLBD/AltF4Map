@@ -1,17 +1,15 @@
 {
-  "npc_count": 355,
-  "base_count": 814,
+  "npc_count": 227,
+  "base_count": 1041,
   "by_resource": {
     "altf4-banking": 4,
     "altf4-electrician": 1,
-    "altf4-fuelstations": 31,
     "altf4-gardener": 1,
     "altf4-license": 1,
     "altf4-moneywash": 1,
     "altf4-restaurants": 39,
     "altf4-robberies": 163,
-    "altf4-vehicles": 17,
-    "altf4_boosting": 97
+    "altf4-vehicles": 17
   },
   "sample": [
     {
@@ -23,8 +21,8 @@
         -283.444916,
         54.16436
       ],
-      "title": "NPC \u2014 Banking #1",
-      "icon": "\ud83e\uddcd",
+      "title": "NPC — Banking #1",
+      "icon": "🧍",
       "description": "Detected NPC/ped coordinate from Banking.",
       "metadata": {
         "Source Resource": "Banking",
@@ -47,8 +45,8 @@
         -54.522366,
         49.036072
       ],
-      "title": "NPC \u2014 Banking #2",
-      "icon": "\ud83e\uddcd",
+      "title": "NPC — Banking #2",
+      "icon": "🧍",
       "description": "Detected NPC/ped coordinate from Banking.",
       "metadata": {
         "Source Resource": "Banking",
@@ -71,8 +69,8 @@
         -335.690094,
         37.780529
       ],
-      "title": "NPC \u2014 Banking #3",
-      "icon": "\ud83e\uddcd",
+      "title": "NPC — Banking #3",
+      "icon": "🧍",
       "description": "Detected NPC/ped coordinate from Banking.",
       "metadata": {
         "Source Resource": "Banking",
@@ -95,8 +93,8 @@
         481.950195,
         15.697449
       ],
-      "title": "NPC \u2014 Banking #4",
-      "icon": "\ud83e\uddcd",
+      "title": "NPC — Banking #4",
+      "icon": "🧍",
       "description": "Detected NPC/ped coordinate from Banking.",
       "metadata": {
         "Source Resource": "Banking",
@@ -119,8 +117,8 @@
         -1603.26,
         29.34
       ],
-      "title": "NPC \u2014 Electrician #1",
-      "icon": "\ud83e\uddcd",
+      "title": "NPC — Electrician #1",
+      "icon": "🧍",
       "description": "Detected NPC/ped coordinate from Electrician.",
       "metadata": {
         "Source Resource": "Electrician",
@@ -134,122 +132,128 @@
       "events": []
     },
     {
-      "id": "all_npc_0006",
+      "id": "all_npc_0037",
       "resource": "altf4-npcs",
       "category": "npc",
       "coords": [
-        854.0,
-        2420.0,
-        55.0
+        -670.43,
+        -888.99,
+        24.5
       ],
-      "title": "NPC \u2014 Fuel Stations #1",
-      "icon": "\ud83e\uddcd",
-      "description": "Detected NPC/ped coordinate from Fuel Stations.",
+      "title": "NPC — Gardener #1",
+      "icon": "🧍",
+      "description": "Detected NPC/ped coordinate from Gardener.",
       "metadata": {
-        "Source Resource": "Fuel Stations",
-        "Source File": "altf4-fuelstations/client/client.lua",
-        "Source Line": "492",
+        "Source Resource": "Gardener",
+        "Source File": "altf4-gardener/config/config.lua",
+        "Source Line": "42",
         "Detected As": "Npc",
-        "Source Context": "icon = 'fas fa-gas-pump', label = Config.Text['fillTanker'], distance = 4 }, ]] }) local tankerFillModel = Config.TankerFillingModel exports.ox_target:addBoxZon"
+        "Source Context": "Config.DefaultUIPositions = { teamList = { top = '50.22vh', left = '85.94vw' }, scoreList = { top = '2.64vh', left = '1.61vw' }, inviteSide = { top = '2.85vh', "
       },
       "related": [],
       "items": {},
       "events": []
     },
     {
-      "id": "all_npc_0007",
+      "id": "all_npc_0038",
       "resource": "altf4-npcs",
       "category": "npc",
       "coords": [
-        849.64,
-        2420.72,
-        54.72
+        -978.894104,
+        -2996.05542,
+        14.101354
       ],
-      "title": "NPC \u2014 Fuel Stations #2",
-      "icon": "\ud83e\uddcd",
-      "description": "Detected NPC/ped coordinate from Fuel Stations.",
+      "title": "NPC — License #1",
+      "icon": "🧍",
+      "description": "Detected NPC/ped coordinate from License.",
       "metadata": {
-        "Source Resource": "Fuel Stations",
-        "Source File": "altf4-fuelstations/shared/config.lua",
-        "Source Line": "32",
+        "Source Resource": "License",
+        "Source File": "altf4-license/client/main.lua",
+        "Source Line": "211",
         "Detected As": "Npc",
-        "Source Context": "Config.FuelDecor = '_FUEL_LEVEL' Config.PumpHose = true Config.NozzLength = 20.0 Config.RopeType = { -- Options: 1-2-3-4-5; 1: Khaki Color, Kind of Thick, 2: Ve"
-      },
-      "related": [],
-      "items": {},
-      "events": []
-    },
-    {
-      "id": "all_npc_0008",
-      "resource": "altf4-npcs",
-      "category": "npc",
-      "coords": [
-        163.568817,
-        -1556.693237,
-        29.261747
-      ],
-      "title": "NPC \u2014 Fuel Stations #3",
-      "icon": "\ud83e\uddcd",
-      "description": "Detected NPC/ped coordinate from Fuel Stations.",
-      "metadata": {
-        "Source Resource": "Fuel Stations",
-        "Source File": "altf4-fuelstations/shared/config.lua",
-        "Source Line": "732",
-        "Detected As": "Ped",
-        "Source Context": "}, } Config.Text = Config.Text[GetConvar('language', 'en')] or Config.Text['en'] Config.BuyCoord = vector3(1161.17, -3197.55, -39.01) Config.GasStations = { -- "
+        "Source Context": "test = type checkpoint = 0 last_checkpoint = 0 errors = 0 above_limit = false veh_health = GetEntityHealth(vehicle) local coords = Config.Zones.VehicleSpawnPoin"
       },
       "related": [],
       "items": {},
       "events": [],
-      "heading": 216.517944
+      "heading": 58.626904
     },
     {
-      "id": "all_npc_0009",
+      "id": "all_npc_0039",
       "resource": "altf4-npcs",
       "category": "npc",
       "coords": [
-        -50.292953,
-        -1759.433838,
-        29.438745
+        5069.286621,
+        -4600.9375,
+        2.858313
       ],
-      "title": "NPC \u2014 Fuel Stations #4",
-      "icon": "\ud83e\uddcd",
-      "description": "Detected NPC/ped coordinate from Fuel Stations.",
+      "title": "Shop NPC — Moneywash #1",
+      "icon": "🧍",
+      "description": "Detected NPC/ped coordinate from Moneywash.",
       "metadata": {
-        "Source Resource": "Fuel Stations",
-        "Source File": "altf4-fuelstations/shared/config.lua",
-        "Source Line": "739",
-        "Detected As": "Ped",
-        "Source Context": "Config.GasStations = { -- gas station polyzones [1] = { defaultStorage = vec4(182.109680, -1546.625854, 29.157494, 136.005264), ped = vec4(163.568817, -1556.693"
+        "Source Resource": "Moneywash",
+        "Source File": "altf4-moneywash/shared/config.lua",
+        "Source Line": "229",
+        "Detected As": "Shop Ped",
+        "Source Context": "label = 'Large Factory', }, }, } Config.Shop = { enabled = true, -- Shop location and ped location = { coords = vec3(5069.286621, -4600.937500, 2.858313), -- Do"
       },
       "related": [],
       "items": {},
       "events": [],
-      "heading": 101.092018
+      "heading": 346.180084
     },
     {
-      "id": "all_npc_0010",
+      "id": "all_npc_0040",
       "resource": "altf4-npcs",
       "category": "npc",
       "coords": [
-        -529.66394,
-        -1222.055542,
-        18.454994
+        256.452118,
+        -819.655701,
+        30.199497
       ],
-      "title": "NPC \u2014 Fuel Stations #5",
-      "icon": "\ud83e\uddcd",
-      "description": "Detected NPC/ped coordinate from Fuel Stations.",
+      "title": "NPC Route Point — Restaurants #1",
+      "icon": "🧍",
+      "description": "Detected NPC/ped coordinate from Restaurants.",
       "metadata": {
-        "Source Resource": "Fuel Stations",
-        "Source File": "altf4-fuelstations/shared/config.lua",
-        "Source Line": "746",
-        "Detected As": "Ped",
-        "Source Context": "}, [2] = { defaultStorage = vec4(-57.946381, -1774.869873, 29.036728, 51.191353), ped = vec4(-50.292953, -1759.433838, 29.438745, 101.092018), tanker = vec4(-67"
+        "Source Resource": "Restaurants",
+        "Source File": "altf4-restaurants/shared/config.lua",
+        "Source Line": "333",
+        "Detected As": "Npc Route",
+        "Source Context": "'a_f_y_eastsa_03', 'a_f_o_ktown_01', 'a_m_m_bevhills_01', 'a_m_m_business_01', 'a_m_m_fatlatin_01', 'a_m_m_genfat_02', }, NpcInterval = 60000, NpcWaitingLocatio"
       },
       "related": [],
       "items": {},
       "events": [],
-      "heading": 328.47406
+      "heading": 344.651367
+    },
+    {
+      "id": "all_npc_0041",
+      "resource": "altf4-npcs",
+      "category": "npc",
+      "coords": [
+        265.265564,
+        -834.477905,
+        29.401773
+      ],
+      "title": "NPC Route Point — Restaurants #2",
+      "icon": "🧍",
+      "description": "Detected NPC/ped coordinate from Restaurants.",
+      "metadata": {
+        "Source Resource": "Restaurants",
+        "Source File": "altf4-restaurants/shared/config.lua",
+        "Source Line": "338",
+        "Detected As": "Npc Route",
+        "Source Context": "'a_m_m_genfat_02', }, NpcInterval = 60000, NpcWaitingLocations = { [1] = vec4(256.452118, -819.655701, 30.199497, 344.651367), -- recolha pedido }, NpcRoutes = "
+      },
+      "related": [],
+      "items": {},
+      "events": [],
+      "heading": 56.770878
     }
-  ]
+  ],
+  "filtered_out": {
+    "altf4_boosting": 97,
+    "altf4-fuelstations": 31,
+    "total": 128
+  }
 }
