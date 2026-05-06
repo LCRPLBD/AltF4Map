@@ -1,0 +1,255 @@
+{
+  "npc_count": 355,
+  "base_count": 814,
+  "by_resource": {
+    "altf4-banking": 4,
+    "altf4-electrician": 1,
+    "altf4-fuelstations": 31,
+    "altf4-gardener": 1,
+    "altf4-license": 1,
+    "altf4-moneywash": 1,
+    "altf4-restaurants": 39,
+    "altf4-robberies": 163,
+    "altf4-vehicles": 17,
+    "altf4_boosting": 97
+  },
+  "sample": [
+    {
+      "id": "all_npc_0001",
+      "resource": "altf4-npcs",
+      "category": "npc",
+      "coords": [
+        311.731506,
+        -283.444916,
+        54.16436
+      ],
+      "title": "NPC \u2014 Banking #1",
+      "icon": "\ud83e\uddcd",
+      "description": "Detected NPC/ped coordinate from Banking.",
+      "metadata": {
+        "Source Resource": "Banking",
+        "Source File": "altf4-banking/peds.lua",
+        "Source Line": "7",
+        "Detected As": "Ped",
+        "Source Context": "local fleecas = { { peds = { { modelName = `cs_bankman`, scenario = 'WORLD_HUMAN_AA_COFFEE', coords = vec3(311.731506, -283.444916, 54.164360), heading = 334.54"
+      },
+      "related": [],
+      "items": {},
+      "events": [],
+      "heading": 334.542847
+    },
+    {
+      "id": "all_npc_0002",
+      "resource": "altf4-npcs",
+      "category": "npc",
+      "coords": [
+        -353.39975,
+        -54.522366,
+        49.036072
+      ],
+      "title": "NPC \u2014 Banking #2",
+      "icon": "\ud83e\uddcd",
+      "description": "Detected NPC/ped coordinate from Banking.",
+      "metadata": {
+        "Source Resource": "Banking",
+        "Source File": "altf4-banking/peds.lua",
+        "Source Line": "17",
+        "Detected As": "Ped",
+        "Source Context": "coords = vec3(311.731506, -283.444916, 54.164360), heading = 334.54284667969, }, }, }, { peds = { { modelName = `cs_bankman`, scenario = 'WORLD_HUMAN_AA_COFFEE'"
+      },
+      "related": [],
+      "items": {},
+      "events": [],
+      "heading": 339.896423
+    },
+    {
+      "id": "all_npc_0003",
+      "resource": "altf4-npcs",
+      "category": "npc",
+      "coords": [
+        -1211.052979,
+        -335.690094,
+        37.780529
+      ],
+      "title": "NPC \u2014 Banking #3",
+      "icon": "\ud83e\uddcd",
+      "description": "Detected NPC/ped coordinate from Banking.",
+      "metadata": {
+        "Source Resource": "Banking",
+        "Source File": "altf4-banking/peds.lua",
+        "Source Line": "27",
+        "Detected As": "Ped",
+        "Source Context": "coords = vec3(-353.399750, -54.522366, 49.036072), heading = 339.89642333984, }, }, }, { peds = { { modelName = `cs_bankman`, scenario = 'WORLD_HUMAN_AA_COFFEE'"
+      },
+      "related": [],
+      "items": {},
+      "events": [],
+      "heading": 25.629942
+    },
+    {
+      "id": "all_npc_0004",
+      "resource": "altf4-npcs",
+      "category": "npc",
+      "coords": [
+        -2957.441895,
+        481.950195,
+        15.697449
+      ],
+      "title": "NPC \u2014 Banking #4",
+      "icon": "\ud83e\uddcd",
+      "description": "Detected NPC/ped coordinate from Banking.",
+      "metadata": {
+        "Source Resource": "Banking",
+        "Source File": "altf4-banking/peds.lua",
+        "Source Line": "37",
+        "Detected As": "Ped",
+        "Source Context": "coords = vec3(-1211.052979, -335.690094, 37.780529), heading = 25.629941940308, }, }, }, { peds = { { modelName = `cs_bankman`, scenario = 'WORLD_HUMAN_AA_COFFE"
+      },
+      "related": [],
+      "items": {},
+      "events": [],
+      "heading": 83.116119
+    },
+    {
+      "id": "all_npc_0005",
+      "resource": "altf4-npcs",
+      "category": "npc",
+      "coords": [
+        528.77,
+        -1603.26,
+        29.34
+      ],
+      "title": "NPC \u2014 Electrician #1",
+      "icon": "\ud83e\uddcd",
+      "description": "Detected NPC/ped coordinate from Electrician.",
+      "metadata": {
+        "Source Resource": "Electrician",
+        "Source File": "altf4-electrician/config/config.lua",
+        "Source Line": "45",
+        "Detected As": "Npc",
+        "Source Context": "Config.DefaultUIPositions = { teamList = { top = '50.22vh', left = '85.94vw' }, scoreList = { top = '2.64vh', left = '1.61vw' }, inviteSide = { top = '2.85vh', "
+      },
+      "related": [],
+      "items": {},
+      "events": []
+    },
+    {
+      "id": "all_npc_0006",
+      "resource": "altf4-npcs",
+      "category": "npc",
+      "coords": [
+        854.0,
+        2420.0,
+        55.0
+      ],
+      "title": "NPC \u2014 Fuel Stations #1",
+      "icon": "\ud83e\uddcd",
+      "description": "Detected NPC/ped coordinate from Fuel Stations.",
+      "metadata": {
+        "Source Resource": "Fuel Stations",
+        "Source File": "altf4-fuelstations/client/client.lua",
+        "Source Line": "492",
+        "Detected As": "Npc",
+        "Source Context": "icon = 'fas fa-gas-pump', label = Config.Text['fillTanker'], distance = 4 }, ]] }) local tankerFillModel = Config.TankerFillingModel exports.ox_target:addBoxZon"
+      },
+      "related": [],
+      "items": {},
+      "events": []
+    },
+    {
+      "id": "all_npc_0007",
+      "resource": "altf4-npcs",
+      "category": "npc",
+      "coords": [
+        849.64,
+        2420.72,
+        54.72
+      ],
+      "title": "NPC \u2014 Fuel Stations #2",
+      "icon": "\ud83e\uddcd",
+      "description": "Detected NPC/ped coordinate from Fuel Stations.",
+      "metadata": {
+        "Source Resource": "Fuel Stations",
+        "Source File": "altf4-fuelstations/shared/config.lua",
+        "Source Line": "32",
+        "Detected As": "Npc",
+        "Source Context": "Config.FuelDecor = '_FUEL_LEVEL' Config.PumpHose = true Config.NozzLength = 20.0 Config.RopeType = { -- Options: 1-2-3-4-5; 1: Khaki Color, Kind of Thick, 2: Ve"
+      },
+      "related": [],
+      "items": {},
+      "events": []
+    },
+    {
+      "id": "all_npc_0008",
+      "resource": "altf4-npcs",
+      "category": "npc",
+      "coords": [
+        163.568817,
+        -1556.693237,
+        29.261747
+      ],
+      "title": "NPC \u2014 Fuel Stations #3",
+      "icon": "\ud83e\uddcd",
+      "description": "Detected NPC/ped coordinate from Fuel Stations.",
+      "metadata": {
+        "Source Resource": "Fuel Stations",
+        "Source File": "altf4-fuelstations/shared/config.lua",
+        "Source Line": "732",
+        "Detected As": "Ped",
+        "Source Context": "}, } Config.Text = Config.Text[GetConvar('language', 'en')] or Config.Text['en'] Config.BuyCoord = vector3(1161.17, -3197.55, -39.01) Config.GasStations = { -- "
+      },
+      "related": [],
+      "items": {},
+      "events": [],
+      "heading": 216.517944
+    },
+    {
+      "id": "all_npc_0009",
+      "resource": "altf4-npcs",
+      "category": "npc",
+      "coords": [
+        -50.292953,
+        -1759.433838,
+        29.438745
+      ],
+      "title": "NPC \u2014 Fuel Stations #4",
+      "icon": "\ud83e\uddcd",
+      "description": "Detected NPC/ped coordinate from Fuel Stations.",
+      "metadata": {
+        "Source Resource": "Fuel Stations",
+        "Source File": "altf4-fuelstations/shared/config.lua",
+        "Source Line": "739",
+        "Detected As": "Ped",
+        "Source Context": "Config.GasStations = { -- gas station polyzones [1] = { defaultStorage = vec4(182.109680, -1546.625854, 29.157494, 136.005264), ped = vec4(163.568817, -1556.693"
+      },
+      "related": [],
+      "items": {},
+      "events": [],
+      "heading": 101.092018
+    },
+    {
+      "id": "all_npc_0010",
+      "resource": "altf4-npcs",
+      "category": "npc",
+      "coords": [
+        -529.66394,
+        -1222.055542,
+        18.454994
+      ],
+      "title": "NPC \u2014 Fuel Stations #5",
+      "icon": "\ud83e\uddcd",
+      "description": "Detected NPC/ped coordinate from Fuel Stations.",
+      "metadata": {
+        "Source Resource": "Fuel Stations",
+        "Source File": "altf4-fuelstations/shared/config.lua",
+        "Source Line": "746",
+        "Detected As": "Ped",
+        "Source Context": "}, [2] = { defaultStorage = vec4(-57.946381, -1774.869873, 29.036728, 51.191353), ped = vec4(-50.292953, -1759.433838, 29.438745, 101.092018), tanker = vec4(-67"
+      },
+      "related": [],
+      "items": {},
+      "events": [],
+      "heading": 328.47406
+    }
+  ]
+}
