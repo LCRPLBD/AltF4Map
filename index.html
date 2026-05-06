@@ -220,8 +220,11 @@ body::before {
 }
 .map {
   width: 100%; height: 100%;
-  cursor: crosshair;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
 }
+.map.panning { cursor: grabbing; }
 
 .map-bar {
   position: absolute;
@@ -254,6 +257,51 @@ body::before {
   z-index: 12;
 }
 .map-helper .accent { color: var(--cyan-dim); }
+
+.map-controls {
+  position: absolute;
+  right: 16px; bottom: 16px;
+  display: flex; align-items: center; gap: 6px;
+  background: rgba(10, 12, 16, 0.88);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--line-2);
+  border-radius: 2px;
+  padding: 8px;
+  z-index: 12;
+}
+.map-control-btn {
+  background: rgba(100, 231, 255, 0.06);
+  border: 1px solid var(--line-2);
+  color: var(--text-1);
+  width: 34px; height: 34px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  border-radius: 2px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  transition: all 0.15s;
+}
+.map-control-btn:hover {
+  color: var(--cyan);
+  border-color: var(--cyan);
+  background: rgba(100, 231, 255, 0.12);
+  box-shadow: 0 0 12px rgba(100, 231, 255, 0.12);
+}
+.map-control-btn.reset {
+  width: auto;
+  padding: 0 10px;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+}
+.map-zoom-level {
+  min-width: 60px;
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: var(--cyan);
+  font-variant-numeric: tabular-nums;
+}
+
 
 /* CALIBRATION PANEL */
 .calib-panel {
@@ -761,8 +809,15 @@ body::before {
       <span class="accent">SCALE</span> 1:10 ·
       <span class="accent">BOUNDS</span> X[-4000,+4500] Y[-3500,+8000]
     </div>
+    <div class="map-controls">
+      <button class="map-control-btn" id="zoom-out" title="Zoom out">−</button>
+      <div class="map-zoom-level" id="zoom-level">100%</div>
+      <button class="map-control-btn" id="zoom-in" title="Zoom in">+</button>
+      <button class="map-control-btn reset" id="zoom-reset" title="Reset zoom">RESET</button>
+    </div>
     <div class="map-wrap">
       <svg class="map" id="map" viewBox="0 0 850 1150" preserveAspectRatio="xMidYMid meet">
+        <g id="zoom-group">
         <image class="satellite-image" href="gtav-map.jpg" x="0" y="0" width="850" height="1150" preserveAspectRatio="xMidYMid slice"/>
         <g class="grid">
           <line class="gridline" x1="100" y1="0" x2="100" y2="1150"/>
@@ -786,6 +841,7 @@ body::before {
         <g id="dots"></g>
         <g id="selected-layer"></g>
         <g id="landmarks-layer"></g>
+        </g>
       </svg>
     </div>
     <div class="tooltip" id="tooltip"></div>
@@ -895,6 +951,85 @@ const relatedLayer = document.getElementById('related-layer');
 const selectedLayer = document.getElementById('selected-layer');
 const tooltip = document.getElementById('tooltip');
 const mapWrap = document.querySelector('.map-wrap');
+const mapSvg = document.getElementById('map');
+const zoomGroup = document.getElementById('zoom-group');
+
+// === Zoom / pan state ===
+const MAP_MIN_SCALE = 1;
+const MAP_MAX_SCALE = 8;
+let mapScale = 1;
+let mapPanX = 0;
+let mapPanY = 0;
+let isPanning = false;
+let dragMoved = false;
+let suppressClickUntil = 0;
+let panStartClient = { x: 0, y: 0 };
+let panStartOffset = { x: 0, y: 0 };
+let lastTouchDistance = 0;
+let lastTouchCenter = null;
+
+function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
+
+function constrainPan() {
+  const scaledW = SVG_W * mapScale;
+  const scaledH = SVG_H * mapScale;
+  mapPanX = scaledW <= SVG_W ? (SVG_W - scaledW) / 2 : clamp(mapPanX, SVG_W - scaledW, 0);
+  mapPanY = scaledH <= SVG_H ? (SVG_H - scaledH) / 2 : clamp(mapPanY, SVG_H - scaledH, 0);
+}
+
+function applyMapTransform() {
+  zoomGroup.setAttribute('transform', `translate(${mapPanX.toFixed(2)} ${mapPanY.toFixed(2)}) scale(${mapScale.toFixed(3)})`);
+  const zoomReadout = document.getElementById('zoom-level');
+  if (zoomReadout) zoomReadout.textContent = `${Math.round(mapScale * 100)}%`;
+}
+
+function getSvgPoint(evt) {
+  const pt = mapSvg.createSVGPoint();
+  pt.x = evt.clientX;
+  pt.y = evt.clientY;
+  const ctm = mapSvg.getScreenCTM();
+  return ctm ? pt.matrixTransform(ctm.inverse()) : { x: 0, y: 0 };
+}
+
+function zoomAtPoint(nextScale, svgX, svgY) {
+  nextScale = clamp(nextScale, MAP_MIN_SCALE, MAP_MAX_SCALE);
+  const worldX = (svgX - mapPanX) / mapScale;
+  const worldY = (svgY - mapPanY) / mapScale;
+  mapScale = nextScale;
+  mapPanX = svgX - worldX * mapScale;
+  mapPanY = svgY - worldY * mapScale;
+  constrainPan();
+  applyMapTransform();
+}
+
+function centerMapOn(svgX, svgY, targetScale = mapScale) {
+  mapScale = clamp(targetScale, MAP_MIN_SCALE, MAP_MAX_SCALE);
+  mapPanX = (SVG_W / 2) - (svgX * mapScale);
+  mapPanY = (SVG_H / 2) - (svgY * mapScale);
+  constrainPan();
+  applyMapTransform();
+}
+
+function resetMapView() {
+  mapScale = 1;
+  mapPanX = 0;
+  mapPanY = 0;
+  constrainPan();
+  applyMapTransform();
+}
+
+function touchDistance(touches) {
+  const dx = touches[0].clientX - touches[1].clientX;
+  const dy = touches[0].clientY - touches[1].clientY;
+  return Math.hypot(dx, dy);
+}
+
+function touchCenter(touches) {
+  return {
+    clientX: (touches[0].clientX + touches[1].clientX) / 2,
+    clientY: (touches[0].clientY + touches[1].clientY) / 2
+  };
+}
 
 // === Build filter list ===
 const counts = {};
@@ -980,6 +1115,7 @@ function render() {
     dot.addEventListener('mouseleave', hideTooltip);
     dot.addEventListener('mousemove', e => positionTooltip(e));
     dot.addEventListener('click', e => {
+      if (Date.now() < suppressClickUntil) return;
       e.stopPropagation();
       selectLocation(loc.id);
     });
@@ -1056,6 +1192,8 @@ function selectLocation(id) {
   if (!loc) return;
   selectedId = id;
   document.getElementById('app').classList.add('detail-open');
+  const [sx, sy] = gtaToSvg(loc.coords[0], loc.coords[1]);
+  centerMapOn(sx, sy, Math.max(mapScale, 2));
   renderDetail(loc);
   render();
 }
@@ -1251,10 +1389,107 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && selectedId) deselect();
 });
 
+// === Map interactions ===
+mapSvg.addEventListener('wheel', e => {
+  e.preventDefault();
+  const pt = getSvgPoint(e);
+  const factor = e.deltaY < 0 ? 1.18 : (1 / 1.18);
+  zoomAtPoint(mapScale * factor, pt.x, pt.y);
+}, { passive: false });
+
+mapSvg.addEventListener('mousedown', e => {
+  if (e.button !== 0) return;
+  isPanning = true;
+  dragMoved = false;
+  panStartClient = { x: e.clientX, y: e.clientY };
+  panStartOffset = { x: mapPanX, y: mapPanY };
+  mapSvg.classList.add('panning');
+});
+
+window.addEventListener('mousemove', e => {
+  if (!isPanning) return;
+  const ctm = mapSvg.getScreenCTM();
+  if (!ctm) return;
+  const dx = (e.clientX - panStartClient.x) / ctm.a;
+  const dy = (e.clientY - panStartClient.y) / ctm.d;
+  if (Math.abs(dx) > 1 || Math.abs(dy) > 1) dragMoved = true;
+  mapPanX = panStartOffset.x + dx;
+  mapPanY = panStartOffset.y + dy;
+  constrainPan();
+  applyMapTransform();
+});
+
+window.addEventListener('mouseup', () => {
+  if (!isPanning) return;
+  isPanning = false;
+  mapSvg.classList.remove('panning');
+  if (dragMoved) suppressClickUntil = Date.now() + 150;
+});
+
+mapSvg.addEventListener('dblclick', e => {
+  e.preventDefault();
+  const pt = getSvgPoint(e);
+  zoomAtPoint(mapScale * 1.35, pt.x, pt.y);
+});
+
+mapSvg.addEventListener('touchstart', e => {
+  if (e.touches.length === 1) {
+    isPanning = true;
+    dragMoved = false;
+    panStartClient = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    panStartOffset = { x: mapPanX, y: mapPanY };
+  } else if (e.touches.length === 2) {
+    isPanning = false;
+    lastTouchDistance = touchDistance(e.touches);
+    lastTouchCenter = touchCenter(e.touches);
+  }
+}, { passive: false });
+
+mapSvg.addEventListener('touchmove', e => {
+  e.preventDefault();
+  const ctm = mapSvg.getScreenCTM();
+  if (!ctm) return;
+
+  if (e.touches.length === 1 && isPanning) {
+    const dx = (e.touches[0].clientX - panStartClient.x) / ctm.a;
+    const dy = (e.touches[0].clientY - panStartClient.y) / ctm.d;
+    if (Math.abs(dx) > 1 || Math.abs(dy) > 1) dragMoved = true;
+    mapPanX = panStartOffset.x + dx;
+    mapPanY = panStartOffset.y + dy;
+    constrainPan();
+    applyMapTransform();
+  } else if (e.touches.length === 2) {
+    const newDistance = touchDistance(e.touches);
+    const center = touchCenter(e.touches);
+    const pt = getSvgPoint(center);
+    if (lastTouchDistance) zoomAtPoint(mapScale * (newDistance / lastTouchDistance), pt.x, pt.y);
+    lastTouchDistance = newDistance;
+    lastTouchCenter = center;
+    dragMoved = true;
+  }
+}, { passive: false });
+
+mapSvg.addEventListener('touchend', () => {
+  isPanning = false;
+  lastTouchDistance = 0;
+  lastTouchCenter = null;
+  if (dragMoved) suppressClickUntil = Date.now() + 150;
+});
+
+document.getElementById('zoom-in').addEventListener('click', () => zoomAtPoint(mapScale * 1.25, SVG_W / 2, SVG_H / 2));
+document.getElementById('zoom-out').addEventListener('click', () => zoomAtPoint(mapScale / 1.25, SVG_W / 2, SVG_H / 2));
+document.getElementById('zoom-reset').addEventListener('click', resetMapView);
+
+window.addEventListener('resize', () => {
+  constrainPan();
+  applyMapTransform();
+});
+
 // === Init ===
 buildFilters();
 renderIdle();
 render();
+resetMapView();
 
 // === CALIBRATION ===
 const LANDMARKS = [
